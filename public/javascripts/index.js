@@ -30,23 +30,72 @@ function onError (e) {
 	console.error(e);
 }
 
-function playSound (buffer, note) {
+function playSound (buffer) {
 	var source = context.createBufferSource ();
 	source.buffer = buffer;
 	source.connect (context.destination);
-	source.noteOn(note);
+	source.noteOn(0);
 }
 
-loadSound('/German-Reject1.wav', 'german', function (err, done) {
+function loadLibrary (cb) {
+	var sounds = [
+		{
+			file: 'German-Reject1.wav',
+			name: 'german'
+		}
+		,{
+			file: 'Moo-Panicked.wav',
+			name: 'moo'
+		}
+		,{
+			file: 'Baa1.wav',
+			name: 'baa'
+		}
+		, {
+			file: 'Dog1.wav',
+			name: 'dog'
+		},
+		{
+			file: 'Dog2.wav',
+			name: 'dog2'
+		}
+	];
+
+	var loadedCount = 0;
+
+	for(var i=0; i<sounds.length; i++) {
+		loadSound('/audio/' + sounds[i].file, sounds[i].name, function (err, done) {
+			loadedCount ++;
+			if (sounds.length === loadedCount) {
+				cb(null, 'loaded');
+			}
+		});
+	}
+}
+
+loadLibrary( function (err, loaded) {
+	if(loaded) {
+		console.log('sounds loaded');
+		//playSound(animalList.german);
+		//playSound(animalList.dog);
+		//playSound(animalList.baa);
+		playSound(animalList.dog2);
+	}
+
+});
+
+/*
+loadSound('/audio/German-Reject1.wav', 'german', function (err, done) {
 	//playSound(animalList.german);
 	for(var i = 0; i< 5; i++) {
-		//setTimeout(function () {playSound(animalList.german);}, 200 * i);
+		//setTimeout(function () {playSound(animalList.german);}, 200);
 		//playSound(animalList.german);
 	}
 });
 
-loadSound('/Moo-Panicked.wav', 'moo', function (err, done) {
+loadSound('/audio/Moo-Panicked.wav', 'moo', function (err, done) {
 	for(var i=0; i< 5; i++) {	
-		setTimeout(function () { playSound(animalList.moo, i); }, 500 * i);
+		//setTimeout(function () { playSound(animalList.moo); }, 500 * i);
 	}
 });
+*/
