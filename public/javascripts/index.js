@@ -46,58 +46,62 @@ var soundy = (function (opts) {
 		playSound(animalList[name])
 	}
 
-	function loadLibrary (cb) {
+	function loadLibrary (opts, cb) {
+		var opts = opts || {}
+		console.log(typeof opts.sounds, typeof opts.sounds === 'undefined')
+		if (typeof opts.sounds === 'undefined') {
+			opts.sounds = [
+	      {
+	          file: 'German-Reject1.wav'
+	        , name: 'german'
+	      }
+	      , {
+	          file: 'Moo-Panicked2.wav'
+	        , name: 'moo'
+	      }
+	      , {
+	          file: 'Baa1.wav'
+	        , name: 'baa'
+	      }
+	      , {
+	          file: 'Dog1.wav'
+	        , name: 'dog'
+	      }
+	      , {
+	          file: 'Dog2.wav'
+	        , name: 'dog2'
+	      }
+	      , {
+	          file: 'Dolphin1.wav'
+	        , name: 'dolphin'
+	      }
+	      , {
+	          file: 'Horse1.wav'
+	        , name: 'horse'
+	      }
+	      , {
+	          file: 'Pig1.wav'
+	        , name: 'pig'
+	      }
+	      , {
+	          file: 'Quack-Donald.wav'
+	        , name: 'duck'
+	      }
+	      , {
+	          file: 'Swan1.wav'
+	        , name: 'swan'
+	      }
+	    ];
+		}
+
 		init(function (err, ready) {
 
 			if (err) {console.error(err)}
 			if (ready) {
-			
-				var sounds = [
-		      {
-		          file: 'German-Reject1.wav'
-		        , name: 'german'
-		      }
-		      , {
-		          file: 'Moo-Panicked.wav'
-		        , name: 'moo'
-		      }
-		      , {
-		          file: 'Baa1.wav'
-		        , name: 'baa'
-		      }
-		      , {
-		          file: 'Dog1.wav'
-		        , name: 'dog'
-		      }
-		      , {
-		          file: 'Dog2.wav'
-		        , name: 'dog2'
-		      }
-		      , {
-		          file: 'Dolphin1.wav'
-		        , name: 'dolphin'
-		      }
-		      , {
-		          file: 'Horse1.wav'
-		        , name: 'horse'
-		      }
-		      , {
-		          file: 'Pig1.wav'
-		        , name: 'pig'
-		      }
-		      , {
-		          file: 'Quack-Donald.wav'
-		        , name: 'duck'
-		      }
-		      , {
-		          file: 'Swan1.wav'
-		        , name: 'swan'
-		      }
-		    ];
-
+				var sounds = opts.sounds
 				var loadedCount = 0
 
-				for(var i=0; i<sounds.length; i++) {
+				for(var i=0; i <sounds.length; i++) {
 					loadSound('/audio/' + sounds[i].file, sounds[i].name, function (err, done) {
 						loadedCount ++
 						if (sounds.length === loadedCount) 
@@ -115,7 +119,7 @@ var soundy = (function (opts) {
 	}
 
 
-	that.done = loadLibrary
+	that.done = that.load = loadLibrary
 	that.add = add
 	that.play = play
 
@@ -123,7 +127,19 @@ var soundy = (function (opts) {
 
 }())
 
-soundy.done( function (err, done) {
+var options = {};
+options.sounds = [
+  {
+      file: 'German-Reject1.wav'
+    , name: 'german'
+  }
+  , {
+      file: 'Moo-Panicked.wav'
+    , name: 'moo'
+  }
+];
+
+soundy.load(options, function (err, done) {
 	console.log(err, done)
 	// soundy.play(soundy.sounds.german)
 })
