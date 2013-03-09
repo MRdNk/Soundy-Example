@@ -3,6 +3,7 @@ var soundy = (function (opts) {
 	var that = {}
 	var opts = opts || {};
 	that.sounds = {}
+	that.version = 'v0.1.0'
 
 	var context
 
