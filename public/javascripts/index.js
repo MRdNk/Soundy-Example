@@ -49,7 +49,7 @@ var soundy = (function (opts) {
 
 	function loadLibrary (opts, cb) {
 		var opts = opts || {}
-		console.log(typeof opts.sounds, typeof opts.sounds === 'undefined')
+		// console.log(typeof opts.sounds, typeof opts.sounds === 'undefined')
 		if (typeof opts.sounds === 'undefined') {
 			opts.sounds = [
 	      {
@@ -121,7 +121,7 @@ var soundy = (function (opts) {
 
 
 	that.done = that.load = loadLibrary
-	that.add = add
+	// that.add = add
 	that.play = play
 
 	return that
