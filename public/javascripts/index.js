@@ -3,7 +3,7 @@ var soundy = (function (opts) {
 	var that = {}
 	var opts = opts || {};
 	that.sounds = {}
-	that.version = 'v0.1.1'
+	that.version = 'v0.1.2'
 
 	var context
 
@@ -101,9 +101,10 @@ var soundy = (function (opts) {
 			if (ready) {
 				var sounds = opts.sounds
 				var loadedCount = 0
+				var path = opts.path || '/audio/'
 
 				for(var i=0; i <sounds.length; i++) {
-					loadSound('/audio/' + sounds[i].file, sounds[i].name, function (err, done) {
+					loadSound(path + sounds[i].file, sounds[i].name, function (err, done) {
 						loadedCount ++
 						if (sounds.length === loadedCount) 
 							cb(null, 'loaded')
