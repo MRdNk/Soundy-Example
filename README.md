@@ -18,15 +18,13 @@ Include soundy.js (my modular approach)
 Define the options object to pass into Soundy
 ---------------------------------------------
 
+```
 Options (object)
-
 - Sounds (array of 'sound' objects)
-
 -- filename (name of the file)
-
 -- name (your 'name' for the file)
-
 - Path (the url path to your sounds folder)
+```
 
 ```javascript
 
